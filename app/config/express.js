@@ -25,4 +25,4 @@ io.on('connection', () => {
   logger.log('a user connected');
 });
 
-module.exports = app;
+module.exports = http;
