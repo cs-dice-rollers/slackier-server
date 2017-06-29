@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import express from 'express';
 
+const config = require('./index');
 const logger = require('../lib/logger')();
 
 const app = express();
@@ -28,9 +29,9 @@ io.on('connection', (socket) => {
     logger.log(`DISCONNECTED: User socket id ${socket.client.id}`);
   });
 
-  socket.on('MESSAGE', (msg) => {
+  socket.on(config.eventNames.receiveMessage, (msg) => {
     logger.log('MESSAGE', msg);
-    io.emit('NEW_MESSAGE', msg);
+    io.emit(config.eventNames.sendMessage, msg);
   });
 });
 
